@@ -18,7 +18,7 @@ describe DockingStation do
     it "a user can return a bike" do
       bike = Bike.new
       subject.dock_bike(bike)
-      expect(subject.bikes).to include?(bike)
+      expect(subject.bikes).to include(bike)
     end
   end
 end
