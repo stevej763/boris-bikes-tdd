@@ -25,5 +25,14 @@ describe DockingStation do
       subject.dock_bike(bike)
       expect(subject.bikes).to include(bike)
     end
+
+    it "a user cannot return a bike if the docking station is full" do
+      bike_1 = Bike.new
+      bike_2 = Bike.new
+
+      subject.dock_bike(bike_1)
+
+      expect {subject.dock_bike(bike_2)}.to raise_error("Docking station is full")
+    end
   end
 end
