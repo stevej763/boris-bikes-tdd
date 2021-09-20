@@ -27,12 +27,12 @@ describe DockingStation do
     end
 
     it "a user cannot return a bike if the docking station is full" do
-      bike_1 = Bike.new
-      bike_2 = Bike.new
+      # Fill to capacity
+      20.times do
+        subject.dock_bike(Bike.new)  
+      end
 
-      subject.dock_bike(bike_1)
-
-      expect {subject.dock_bike(bike_2)}.to raise_error("Docking station full")
+      expect {subject.dock_bike(Bike.new)}.to raise_error("Docking station full")
     end
   end
 end
