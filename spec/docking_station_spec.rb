@@ -32,7 +32,7 @@ describe DockingStation do
 
       subject.dock_bike(bike_1)
 
-      expect {subject.dock_bike(bike_2)}.to raise_error("Docking station is full")
+      expect {subject.dock_bike(bike_2)}.to raise_error("Docking station full")
     end
   end
 end
