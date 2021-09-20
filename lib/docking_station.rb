@@ -8,7 +8,8 @@ class DockingStation
   attr_reader :bikes
 
   def release_bike
-    Bike.new
+    raise "No available bikes" if @bikes.empty?
+    return @bikes.pop
   end
 
   def dock_bike(bike)

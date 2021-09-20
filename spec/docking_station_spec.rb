@@ -6,13 +6,14 @@ describe DockingStation do
     it { is_expected.to respond_to(:release_bike)}
 
     it "releases a working bike" do
+      subject.dock_bike(Bike.new)
       result = subject.release_bike
       expect(result.class).to eq Bike
       expect(result.working?).to eq true
     end
 
     it "doesn't let the user release a bike if none are present" do
-      expect {subject.release_bike}.to raise_error
+      expect {subject.release_bike}.to raise_error("No available bikes")
     end
   end
 
