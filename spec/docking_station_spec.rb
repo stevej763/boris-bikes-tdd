@@ -10,6 +10,10 @@ describe DockingStation do
       expect(result.class).to eq Bike
       expect(result.working?).to eq true
     end
+
+    it "doesn't let the user release a bike if none are present" do
+      expect {subject.release_bike}.to raise_error
+    end
   end
 
   describe "dock_bike method" do
