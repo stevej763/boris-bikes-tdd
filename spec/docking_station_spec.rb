@@ -15,6 +15,22 @@ describe DockingStation do
     it "doesn't let the user release a bike if none are present" do
       expect {subject.release_bike}.to raise_error("No available bikes")
     end
+
+    it "doesn't release a broken bike" do
+      bike_one = Bike.new
+      bike_two = Bike.new
+      bike_three = Bike.new
+
+      
+      subject.dock_bike(bike_two, false)
+      subject.dock_bike(bike_one)
+
+      released_bike = subject.release_bike
+
+      expect(released_bike).to eq bike_one
+      expect(released_bike.working).to eq true
+      expect(subject.bikes).to include bike_two
+    end
   end
 
   describe "dock_bike method" do
