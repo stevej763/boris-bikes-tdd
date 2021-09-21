@@ -1,14 +1,15 @@
 require 'docking_station'
-require 'bike'
 
 describe DockingStation do
+  let(:working_bike) {double :working_bike, working: true, class: Bike}
+  let(:broken_bike) {double :broken_bike, working: false, "working=": false}
+
   describe "release_bike method" do
+
     it { is_expected.to respond_to(:release_bike)}
-    let(:bike) {double :bike, working: true, class: Bike}
-    let(:bike_two) {double :bike_two, working: false, class: Bike}
 
     it "releases a working bike" do
-      subject.dock_bike(bike)
+      subject.dock_bike(working_bike)
 
       result = subject.release_bike
       expect(result.class).to eq Bike
@@ -19,35 +20,30 @@ describe DockingStation do
       expect {subject.release_bike}.to raise_error("No available bikes")
     end
 
-    it "doesn't release a broken bike" do
-      bike_one = bike
-      bike_two = bike_two
-
-      # allow(bike_two).to receive(:working=).with(false)
+    context "doesn't release a broken bike" do
       
-      subject.dock_bike(bike_one)
-      subject.dock_bike(bike_two, false)
+      it "when broken bike added first" do
+        subject.dock_bike(broken_bike, false)
+        subject.dock_bike(working_bike)
+  
+        expect(subject.release_bike).to eq working_bike
+        expect(subject.bikes).to include broken_bike
+      end
 
-      print(subject.bikes)
-
-      released_bike = subject.release_bike
-
+      it "when wokring bike added first" do
+        subject.dock_bike(working_bike)
+        subject.dock_bike(broken_bike, false)
       
-
-      expect(released_bike).to eq bike_one
-      expect(released_bike.working).to eq true
-
-      print(subject.bikes)
-
-      expect(subject.bikes).to include bike_two
+        expect(subject.release_bike).to eq working_bike
+        expect(subject.bikes).to include broken_bike
+      end
     end
 
     it "raises an error when there are no working bikes" do
-      bike = double(:bike)
-      subject.dock_bike(bike, false)
+      subject.dock_bike(broken_bike, false)
 
       expect {subject.release_bike}.to raise_error("No available bikes")
-      expect(subject.bikes).to include bike
+      expect(subject.bikes).to include broken_bike
     end
   end
 
@@ -55,18 +51,17 @@ describe DockingStation do
     it { is_expected.to respond_to(:dock_bike)}
 
     it "a user can return a bike" do
-      bike = double(:bike)
-      subject.dock_bike(bike)
-      expect(subject.bikes).to include(bike)
+      subject.dock_bike(working_bike)
+      expect(subject.bikes).to include(working_bike)
     end
 
     it "a user cannot return a bike if the docking station is full" do
       # Fill to capacity
       subject.capacity.times do
-        subject.dock_bike(double(:bike))  
+        subject.dock_bike(working_bike)  
       end
 
-      expect {subject.dock_bike(double(:bike))}.to raise_error("Docking station full")
+      expect {subject.dock_bike(working_bike)}.to raise_error("Docking station full")
     end
 
     it "a user cannot return a bike if the docking station is full with custom capacity" do
@@ -74,17 +69,15 @@ describe DockingStation do
       
       # Fill to capacity
       docking_station.capacity.times do
-        docking_station.dock_bike(double(:bike))
+        docking_station.dock_bike(working_bike)
       end
 
-      expect {docking_station.dock_bike(double(:bike))}.to raise_error("Docking station full")
+      expect {docking_station.dock_bike(working_bike)}.to raise_error("Docking station full")
     end
 
     it 'a user can return a broken bike' do
-      bike = double(:bike)
-      subject.dock_bike(bike, false)
-      expect(subject.bikes).to include(bike)
-      expect(bike.working).to eq(false)
+      subject.dock_bike(broken_bike, false)
+      expect(subject.bikes).to include(broken_bike)
     end
   end
 
