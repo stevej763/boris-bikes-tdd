@@ -4,9 +4,12 @@ require 'bike'
 describe DockingStation do
   describe "release_bike method" do
     it { is_expected.to respond_to(:release_bike)}
+    let(:bike) {double :bike, working: true, class: Bike}
+    let(:bike_two) {double :bike_two, working: false, class: Bike}
 
     it "releases a working bike" do
-      subject.dock_bike(double(:bike))
+      subject.dock_bike(bike)
+
       result = subject.release_bike
       expect(result.class).to eq Bike
       expect(result.working).to eq true
@@ -17,16 +20,25 @@ describe DockingStation do
     end
 
     it "doesn't release a broken bike" do
-      bike_one = double(:bike_one)
-      bike_two = double(:bike_two)
+      bike_one = bike
+      bike_two = bike_two
 
+      # allow(bike_two).to receive(:working=).with(false)
+      
       subject.dock_bike(bike_one)
       subject.dock_bike(bike_two, false)
 
+      print(subject.bikes)
+
       released_bike = subject.release_bike
+
+      
 
       expect(released_bike).to eq bike_one
       expect(released_bike.working).to eq true
+
+      print(subject.bikes)
+
       expect(subject.bikes).to include bike_two
     end
 
