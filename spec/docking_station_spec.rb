@@ -19,11 +19,9 @@ describe DockingStation do
     it "doesn't release a broken bike" do
       bike_one = Bike.new
       bike_two = Bike.new
-      bike_three = Bike.new
 
-      
-      subject.dock_bike(bike_two, false)
       subject.dock_bike(bike_one)
+      subject.dock_bike(bike_two, false)
 
       released_bike = subject.release_bike
 
