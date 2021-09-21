@@ -16,8 +16,9 @@ class DockingStation
     return @bikes.pop
   end
 
-  def dock_bike(bike)
+  def dock_bike(bike, is_working = true)
     raise "Docking station full" if full?
+    bike.working = false if !is_working
     @bikes.push(bike)
   end
 
