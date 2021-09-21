@@ -28,7 +28,7 @@ describe DockingStation do
 
     it "a user cannot return a bike if the docking station is full" do
       # Fill to capacity
-      20.times do
+      DockingStation::DEFAULT_CAPACITY.times do
         subject.dock_bike(Bike.new)  
       end
 
