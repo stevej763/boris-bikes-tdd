@@ -9,7 +9,7 @@ describe DockingStation do
       subject.dock_bike(Bike.new)
       result = subject.release_bike
       expect(result.class).to eq Bike
-      expect(result.working?).to eq true
+      expect(result.working).to eq true
     end
 
     it "doesn't let the user release a bike if none are present" do
