@@ -28,11 +28,29 @@ describe DockingStation do
 
     it "a user cannot return a bike if the docking station is full" do
       # Fill to capacity
-      DockingStation::DEFAULT_CAPACITY.times do
+      subject.capacity.times do
         subject.dock_bike(Bike.new)  
       end
 
       expect {subject.dock_bike(Bike.new)}.to raise_error("Docking station full")
+    end
+
+    it "a user cannot return a bike if the docking station is full with custom capacity" do
+      docking_station = DockingStation.new(10)
+      
+      # Fill to capacity
+      docking_station.capacity.times do
+        docking_station.dock_bike(Bike.new)  
+      end
+
+      expect {docking_station.dock_bike(Bike.new)}.to raise_error("Docking station full")
+    end
+  end
+
+  describe "#initialize" do
+    it "can initialise docking station with specified capacity" do
+      docking_station = DockingStation.new(10)
+      expect(docking_station.capacity).to eq 10
     end
   end
 end
