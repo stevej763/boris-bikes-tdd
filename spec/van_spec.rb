@@ -1,8 +1,8 @@
 require 'van'
 
 describe Van do
-  let(:broken_bike) {instance_double(Bike)}
-  let(:broken_bike_2) {instance_double(Bike)}
+  let(:broken_bike) {double :broken_bike}
+  let(:broken_bike_2) {double :broken_bike_2}
   let(:docking_station) { double :docking_station, release_broken_bikes: [broken_bike, broken_bike_2] }
   let(:garage) { double :garage, receive_bikes: [broken_bike, broken_bike_2] }
 
