@@ -27,6 +27,10 @@ class DockingStation
     @bikes.push(bike)
   end
 
+  def receive_fixed_bikes(fixed_bikes)
+    @bikes += fixed_bikes
+  end
+
   private
 
   def find_broken_bikes

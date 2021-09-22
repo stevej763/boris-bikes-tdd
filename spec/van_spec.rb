@@ -37,7 +37,7 @@ describe Van do
   describe "#deliver_fixed_bikes" do
     it "delivers fixed bikes to a docking station" do
       subject.collect_fixed_bikes(garage)
-      expect(docking_station).to receive(:receive_bikes).with([fixed_bike, fixed_bike_2])
+      expect(docking_station).to receive(:receive_fixed_bikes).with([fixed_bike, fixed_bike_2])
       subject.deliver_fixed_bikes(docking_station)
       expect(subject.bikes).to eq []
     end

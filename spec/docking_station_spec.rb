@@ -114,4 +114,13 @@ describe DockingStation do
       expect(subject.bikes).to include(working_bike)
     end
   end
+
+  describe '#receive_fixed_bikes' do
+    it 'receives an array of fixed bikes' do
+      bike_array = [working_bike]
+      subject.receive_fixed_bikes(bike_array)
+      expect(subject.bikes).to eq bike_array
+    end
+  end
+  
 end

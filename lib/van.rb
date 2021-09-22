@@ -20,7 +20,7 @@ class Van
   end
 
   def deliver_fixed_bikes(docking_station)
-    docking_station.receive_bikes(@bikes)
+    docking_station.receive_fixed_bikes(@bikes)
     @bikes = []
   end
 
