@@ -19,4 +19,9 @@ class Van
     @bikes += garage.release_fixed_bikes
   end
 
+  def deliver_fixed_bikes(docking_station)
+    docking_station.receive_bikes(@bikes)
+    @bikes = []
+  end
+
 end
