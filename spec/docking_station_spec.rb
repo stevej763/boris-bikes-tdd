@@ -3,6 +3,7 @@ require 'docking_station'
 describe DockingStation do
   let(:working_bike) {double :working_bike, working: true, class: Bike}
   let(:broken_bike) {double :broken_bike, working: false, "working=": false}
+  let(:broken_bike_2) {double :broken_bike, working: false, "working=": false}
 
   describe "release_bike method" do
 
@@ -92,6 +93,25 @@ describe DockingStation do
     it "doesn't let the user release a broken bike if none are present" do
       subject.dock_bike(working_bike)
       expect {subject.release_broken_bikes}.to raise_error("No broken bikes")
+    end
+
+    it "releases a broken bike" do
+      subject.dock_bike(working_bike)
+      subject.dock_bike(working_bike)
+      subject.dock_bike(broken_bike, false)
+
+      expect(subject.release_broken_bikes).to include(broken_bike)
+      expect(subject.bikes).not_to include(broken_bike)
+    end
+
+    it "releases multiple broken bikes" do
+      subject.dock_bike(working_bike)
+      subject.dock_bike(working_bike)
+      subject.dock_bike(broken_bike, false)
+      subject.dock_bike(broken_bike_2, false)
+
+      expect(subject.release_broken_bikes).to include(broken_bike, broken_bike_2)
+      expect(subject.bikes).to include(working_bike)
     end
   end
 end

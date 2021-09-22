@@ -48,6 +48,7 @@ class DockingStation
   def get_all_broken_bikes
     broken_bikes = []
     find_broken_bikes.each {|bike| broken_bikes << @bikes.delete(bike)}
+    broken_bikes
   end
 
   def update_bike_status(bike, is_working)
