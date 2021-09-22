@@ -24,4 +24,15 @@ describe Garage do
       expect(subject.bikes[1].working).to eq true
     end
   end
+
+  describe '#release_fixed_bikes' do
+    it "releases fixed bikes" do    
+      bike_array = [bike_1, bike_2]
+      subject.receive_bikes(bike_array)
+      subject.fix_bikes
+
+      expect(subject.release_fixed_bikes).to eq bike_array
+      expect(subject.bikes).to eq []
+    end
+  end
 end
