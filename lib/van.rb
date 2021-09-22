@@ -15,4 +15,8 @@ class Van
     @bikes = []
   end
 
+  def collect_fixed_bikes(garage)
+    @bikes += garage.release_fixed_bikes
+  end
+
 end
