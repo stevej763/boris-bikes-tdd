@@ -87,4 +87,11 @@ describe DockingStation do
       expect(docking_station.capacity).to eq 10
     end
   end
+
+  describe '#release_broken_bikes' do
+    it "doesn't let the user release a broken bike if none are present" do
+      subject.dock_bike(working_bike)
+      expect {subject.release_broken_bikes}.to raise_error("No broken bikes")
+    end
+  end
 end
