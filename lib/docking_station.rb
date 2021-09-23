@@ -1,6 +1,8 @@
 require_relative 'bike'
+require_relative 'bike_container'
 
 class DockingStation
+  include BikeContainer
 
   DEFAULT_CAPACITY = 20
 
@@ -25,10 +27,6 @@ class DockingStation
     raise "Docking station full" if full?
     update_bike_status(bike, is_working) 
     @bikes.push(bike)
-  end
-
-  def receive_fixed_bikes(fixed_bikes)
-    @bikes += fixed_bikes
   end
 
   private

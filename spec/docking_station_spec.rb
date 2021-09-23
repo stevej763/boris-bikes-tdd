@@ -118,7 +118,7 @@ describe DockingStation do
   describe '#receive_fixed_bikes' do
     it 'receives an array of fixed bikes' do
       bike_array = [working_bike]
-      subject.receive_fixed_bikes(bike_array)
+      subject.receive_bikes(bike_array)
       expect(subject.bikes).to eq bike_array
     end
   end
