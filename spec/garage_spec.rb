@@ -35,7 +35,7 @@ describe Garage do
       expect(subject.bikes).to eq []
     end
 
-    it "throws if no fixed bikes" do    
+    it "throws if no fixed bikes to release" do    
       expect {subject.release_fixed_bikes}.to raise_error("No fixed bikes")
     end
   end

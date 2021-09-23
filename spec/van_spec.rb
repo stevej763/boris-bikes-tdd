@@ -22,7 +22,7 @@ describe Van do
       expect(subject.bikes).to include(fixed_bike, fixed_bike_2)
     end
 
-    it "doesn't collect bikes if location is an invalid location" do
+    it "throws expection if loction is invalid" do
       expect {subject.collect_bikes("Invalid")}.to raise_error("Invalid location")
     end
   end
