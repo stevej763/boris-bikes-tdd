@@ -6,22 +6,18 @@ class Van
 
   attr_reader :bikes
 
-  def collect_broken_bikes(docking_station)
-    @bikes += docking_station.release_broken_bikes
-  end
-  
-  def deliver_broken_bikes(garage)
-    garage.receive_bikes(@bikes)
+  def deliver_bikes(location)
+    location.receive_bikes(@bikes)
     @bikes = []
   end
 
-  def collect_fixed_bikes(garage)
-    @bikes += garage.release_fixed_bikes
+  def collect_bikes(location)
+    if location.class == Garage
+      @bikes += location.release_fixed_bikes  
+    elsif location.class == DockingStation
+      @bikes += location.release_broken_bikes
+    else 
+      raise "Invalid location"
+    end
   end
-
-  def deliver_fixed_bikes(docking_station)
-    docking_station.receive_fixed_bikes(@bikes)
-    @bikes = []
-  end
-
 end
